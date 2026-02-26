@@ -1,0 +1,28 @@
+.card {
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  border: none;
+  
+  .card-header {
+    background: linear-gradient(to right, #f8f9fa, #ffffff);
+  }
+}
+
+.table {
+  th {
+    background-color: #f8f9fa;
+  }
+  
+  td {
+    vertical-align: middle;
+  }
+}
+
+.badge {
+  padding: 0.5rem 0.75rem;
+}
+
+.btn {
+  i {
+    margin-right: 0.5rem;
+  }
+}

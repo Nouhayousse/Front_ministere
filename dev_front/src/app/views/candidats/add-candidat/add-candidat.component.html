@@ -1,0 +1,63 @@
+<c-card>
+  <c-card-body>
+    <h4>Renseignez Vos Informations</h4>
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <div class="mb-3">
+        <label>Nom</label>
+        <input class="form-control" [(ngModel)]="candidat.nomFr" name="nomFr" required>
+      </div>
+      <div class="mb-3">
+        <label>Prénom</label>
+        <input class="form-control" [(ngModel)]="candidat.prenomFr" name="prenomFr" required>
+      </div>
+            <div class="mb-3">
+        <label>Nom (arabe)</label>
+        <input class="form-control" [(ngModel)]="candidat.nomAr" name="nomAr" dir="rtl" required>
+      </div>
+      <div class="mb-3">
+        <label>Prénom (arabe)</label>
+        <input class="form-control" [(ngModel)]="candidat.prenomAr" name="prenomAr" dir="rtl" required>
+      </div>
+      <div class="mb-3">
+        <label>Email</label>
+        <input class="form-control" type="email" [(ngModel)]="candidat.email" name="email" required>
+      </div>
+    
+      <div class="mb-3">
+        <label>Genre</label>
+        <select class="form-control" [(ngModel)]="candidat.genre" name="genre" required>
+          <option value="HOMME">Homme</option>
+          <option value="FEMME">Femme</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label>Date de naissance</label>
+        <input class="form-control" type="date" [(ngModel)]="candidat.dateNaissance" name="dateNaissance" required>
+      </div>
+      <div class="mb-3">
+        <label>Lieu de naissance</label>
+        <input class="form-control" [(ngModel)]="candidat.lieuNaissance" name="lieuNaissance">
+      </div>
+      <div class="mb-3">
+        <label>Ville</label>
+        <input class="form-control" [(ngModel)]="candidat.ville" name="ville">
+      </div>
+      <div class="mb-3">
+        <label>Pays</label>
+        <input class="form-control" [(ngModel)]="candidat.pays" name="pays">
+      </div>
+      <div class="mb-3">
+        <label>Téléphone</label>
+        <input class="form-control" [(ngModel)]="candidat.telephone" name="telephone">
+      </div>
+    
+      <!-- Ajoute d'autres champs si besoin -->
+      <button class="btn btn-success" type="submit">Valider</button>
+    </form>
+    <div *ngIf="success" class="alert alert-success mt-3">
+      Candidat ajouté avec succès !
+    </div>
+  </c-card-body>
+</c-card>
+
+

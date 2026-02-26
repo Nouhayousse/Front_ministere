@@ -1,0 +1,49 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Bienvenue sur la Plateforme des Concours</h1>
+      <p class="lead">Votre portail pour les concours administratifs. Explorez les opportunités et construisez votre avenir professionnel dans l'administration.</p>
+      <a routerLink="/candidat/concoursList" class="cta-button">
+        <i class="bi bi-arrow-right-circle"></i>
+        Voir les concours disponibles
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <i [class]="feature.icon"></i>
+        <h3>{{feature.title}}</h3>
+        <p>{{feature.description}}</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- News Section -->
+<div class="container mb-5">
+  <h2 class="text-center mb-4">Actualités des concours</h2>
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Nouveaux concours ouverts</h5>
+          <p class="card-text">Consultez les derniers concours publiés et leurs conditions d'accès.</p>
+          <a routerLink="/concoursList" class="btn btn-outline-primary">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Dates importantes</h5>
+          <p class="card-text">Retrouvez les dates limites de dépôt des candidatures.</p>
+          <a routerLink="/concoursList" class="btn btn-outline-primary">Voir le calendrier</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

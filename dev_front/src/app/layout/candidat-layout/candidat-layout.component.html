@@ -1,0 +1,51 @@
+<div class="candidat-layout">
+  <!-- Navbar prestigieuse -->
+  <nav class="navbar-luxe">
+    <div class="container">
+      <div class="navbar-content">
+        <div class="logo-section">
+          <img src="assets/images/logominis1.png" alt="Logo" class="navbar-logo">
+        </div>
+        
+        <div class="nav-links">
+          <a routerLink="/candidat" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+            <i class="bi bi-house-door"></i>
+            <span>Accueil</span>
+          </a>
+          <a routerLink="/candidat/concoursList" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-list-check"></i>
+            <span>Concours</span>
+          </a>
+          <a routerLink="/candidat/suivi-candidature" routerLinkActive="active" class="nav-link">
+            <i class="bi bi-folder-check"></i>
+            <span>Suivi</span>
+          </a>
+        </div>
+
+        <div class="auth-section">
+          <a routerLink="/login" class="login-btn">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Espace Admin</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenu principal -->
+  <main class="main-content">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <!-- Footer élégant -->
+  <footer class="footer-luxe">
+    <div class="container">
+      <div class="footer-content">
+        <img src="assets/images/ministere.png" alt="Logo" class="footer-logo">
+        <p class="footer-text">Plateforme de Gestion des Concours</p>
+      </div>
+    </div>
+  </footer>
+</div>

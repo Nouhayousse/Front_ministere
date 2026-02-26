@@ -1,0 +1,152 @@
+dat-home.component.scss
+.home-container {
+  padding: 2rem 0;
+}
+
+.hero-section {
+  text-align: left;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+
+  .hero-content {
+    max-width: 75%;
+    padding-right: 2rem;
+    position: relative;
+    z-index: 2;
+
+    h1 {
+      color: #1e3a8a;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .lead {
+      color: #4b5563;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.1rem;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+      }
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 90%;
+    background: url('/assets/images/royaume.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+.features-section {
+  padding: 2rem 0;
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    i {
+      font-size: 2.5rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: #1e3a8a;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #4b5563;
+      line-height: 1.6;
+    }
+  }
+}
+
+@media (max-width: 200px) {
+  .hero-section {
+    padding: 3rem 1rem;
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-section {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 2rem;
+
+    .hero-content {
+      max-width: 100%;
+      padding-right: 0;
+      padding-top: 2rem;
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    &::after {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+    }
+  }
+}

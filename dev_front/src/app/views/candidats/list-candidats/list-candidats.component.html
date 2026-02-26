@@ -1,0 +1,77 @@
+<c-card>
+  <c-card-body>
+    <h4 class="mb-4">Liste des candidats</h4>
+    <div class="mb-3">
+      <input class="form-control" placeholder="Rechercher..." [(ngModel)]="searchText">
+    </div>
+    <div class="mb-3">
+      <select class="form-select" [(ngModel)]="filterGenre">
+        <option value="">Tous les genres</option>
+        <option value="HOMME">Homme</option>
+        <option value="FEMME">Femme</option>
+      </select>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th><svg cIcon name="cilUser"></svg> Nom</th>
+            <th>Prénom</th>
+            <th>NomAr</th>
+            <th>PrénomAr</th>
+            <th>Genre</th>
+            <th class="text-nowrap" style="min-width: 120px; position: center;"><svg cIcon name="cilCalendar"></svg> Date de naissance</th>
+            <th class="text-nowrap" style="min-width: 120px;"><svg cIcon name="cilLocationPin"></svg> Lieu de naissance</th>
+            <th> Ville</th>
+            <th>Pays</th>
+            <th>Téléphone</th>
+            <th class="text-nowrap" style="min-width: 120px;"> LinkedIn</th>
+
+            <th><svg cIcon name="cilEnvelopeClosed"></svg> Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of filteredCandidats()">
+            <td>{{ c.nomFr }}</td>
+            <td>{{ c.prenomFr }}</td>
+            <td>{{ c.nomAr }}</td>
+            <td>{{ c.prenomAr }}</td>
+            <td>
+              <span [ngClass]="{
+                'badge bg-info text-dark': c.genre === 'HOMME',
+                'badge bg-warning text-dark': c.genre === 'FEMME'
+              }">
+                {{ c.genre }}
+              </span>
+            </td>
+            <td>{{ c.dateNaissance | date:'yyyy-MM-dd' }}</td>
+            <td>{{ c.lieuNaissance }}</td>
+            <td>{{ c.ville }}</td>
+            <td>{{ c.pays }}</td>
+            <td>{{ c.telephone }}</td>
+            
+            <td>{{ c.linkedIn }}</td>
+            <td>{{ c.email }}</td>
+            <td>
+              <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-info" (click)="viewCandidat(c)">
+                  <svg cIcon name="cilMagnifyingGlass"></svg>
+                </button>
+                <button class="btn btn-sm btn-warning" (click)="editCandidat(c)">
+                  <svg cIcon name="cilPencil"></svg>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="deleteCandidat(c)">
+                  <svg cIcon name="cilTrash"></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="candidats.length === 0">
+            <td colspan="13" class="text-center text-muted">Aucun candidat trouvé.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </c-card-body>
+</c-card>

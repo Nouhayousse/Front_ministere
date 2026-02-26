@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <!-- Alert de succès -->
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <div class="mt-2">
+      <small>Redirection en cours...</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3>Import des Notes</h3>
+      <button class="btn btn-secondary" routerLink="/admin/candidatures">
+        <i class="bi bi-arrow-left"></i> Retour
+      </button>
+    </div>
+    
+    <div class="card-body">
+      <div class="alert alert-info mb-4">
+        <h5>Format attendu du fichier Excel:</h5>
+        <p>Le fichier doit contenir deux colonnes :</p>
+        <ul>
+          <li>Reference Candidature</li>
+          <li>Note Globale (entre 0 et 20)</li>
+        </ul>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Sélectionner le fichier Excel</label>
+        <input 
+          type="file" 
+          class="form-control" 
+          (change)="onFileChange($event)"
+          accept=".xlsx,.xls"
+        >
+      </div>
+
+      <div *ngIf="preview.length > 0" class="mt-4">
+        <h4>Aperçu des données</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID Candidature</th>
+                <th>Note Globale</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of preview">
+                <td>{{row.idCandidature}}</td>
+                <td>{{row.note}}</td>
+                <td>
+                  <span class="badge" [ngClass]="row.status === 'success' ? 'bg-success' : 'bg-danger'">
+                    {{row.status === 'success' ? 'Valide' : 'Erreur'}}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <button 
+          class="btn btn-primary"
+          (click)="importNotes()"
+          [disabled]="importing || !preview.some(row => row.status === 'success')"
+        >
+          <span *ngIf="importing" class="spinner-border spinner-border-sm me-2"></span>
+          {{importing ? 'Importation en cours...' : 'Confirmer l\'import'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="container mt-4" *ngIf="!modificationReussie">
+  <div class="card">
+    <div class="card-header">
+      <h3>Modifier le concours</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="concoursForm" (ngSubmit)="onSubmit()">
+        <!-- Informations générales -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Nom du Concours</label>
+            <input type="text" class="form-control" formControlName="nomConcours">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Grade</label>
+            <select class="form-select" formControlName="grade">
+              <option [ngValue]="null">Sélectionner un grade</option>
+              <option *ngFor="let grade of grades" [value]="grade.id">
+                {{grade.nom}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" rows="3" formControlName="description"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Date de début</label>
+            <input type="date" class="form-control" formControlName="dateDebut">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Date de fin</label>
+            <input type="date" class="form-control" formControlName="dateFin">
+          </div>
+        </div>
+
+        <!-- Autres champs -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Nombre de postes</label>
+            <input type="number" class="form-control" formControlName="nombrePostes">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Lieu</label>
+            <input type="text" class="form-control" formControlName="lieu">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Conditions</label>
+          <textarea class="form-control" rows="3" formControlName="conditions"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Date publication résultats</label>
+            <input type="date" class="form-control" formControlName="datePubResultats">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Public cible</label>
+            <input type="text" class="form-control" formControlName="publicCible">
+          </div>
+        </div>
+
+        <!-- Épreuves -->
+        <div class="mt-4">
+          <h4>Épreuves</h4>
+          <div formArrayName="epreuves">
+            <div *ngFor="let epreuve of epreuves.controls; let i=index" [formGroupName]="i" class="card mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="card-title mb-0">Épreuve {{i + 1}}</h5>
+                  <button type="button" class="btn btn-danger btn-sm" (click)="supprimerEpreuve(i)">
+                    Supprimer
+                  </button>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Titre</label>
+                    <input type="text" class="form-control" formControlName="titre">
+                  </div>
+                  
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Type d'épreuve</label>
+                    <select class="form-select" formControlName="typeEpreuve">
+                      <option value="">Sélectionner</option>
+                      <option value="ECRITE">Écrite</option>
+                      <option value="ORALE">Orale</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-control" formControlName="dateEpreuve">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Durée (minutes)</label>
+                    <input type="number" class="form-control" formControlName="duree">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Lieu</label>
+                    <input type="text" class="form-control" formControlName="lieu">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Coefficient</label>
+                    <input type="number" class="form-control" formControlName="coefficient">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Seuil éliminatoire</label>
+                    <input type="number" class="form-control" formControlName="seuilEliminatoire">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre de retenus</label>
+                    <input type="number" class="form-control" formControlName="nbRetenus">
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" formControlName="description" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" 
+                  class="btn btn-secondary mt-3" 
+                  (click)="ajouterEpreuve()"
+                  [disabled]="loading">
+            <i class="bi bi-plus-circle me-2"></i>
+            Ajouter une épreuve
+          </button>
+        </div>
+
+        <div class="mt-4">
+          <button type="submit" class="btn btn-primary" [disabled]="!concoursForm.valid || loading">
+            {{loading ? 'Enregistrement...' : 'Enregistrer les modifications'}}
+          </button>
+          <button type="button" class="btn btn-secondary ms-2" routerLink="/admin/concours/adminConcoursList">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4" *ngIf="modificationReussie">
+  <div class="alert alert-success">
+    <h4>Modification réussie !</h4>
+    <p>Le concours a été modifié avec succès.</p>
+    <button class="btn btn-primary" (click)="retourListe()">
+      Retour à la liste
+    </button>
+  </div>
+</div>

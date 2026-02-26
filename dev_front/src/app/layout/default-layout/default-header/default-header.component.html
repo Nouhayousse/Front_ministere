@@ -1,0 +1,61 @@
+<ng-container>
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <!-- Sidebar Toggle -->
+    <button
+      [cSidebarToggle]="sidebarId()"
+      class="btn"
+      toggle="visible"
+      style="margin-inline-start: -14px;"
+    >
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+
+    <!-- Right Side Navigation -->
+    <c-header-nav class="ms-auto d-flex align-items-center gap-3">
+      <!-- Theme Toggle -->
+      <c-dropdown alignment="end" variant="nav-item">
+        <button 
+          [caret]="false" 
+          cDropdownToggle 
+          class="btn btn-link"
+        >
+          <svg cIcon [name]="icons()" size="lg"></svg>
+        </button>
+        <div cDropdownMenu>
+          @for (mode of colorModes; track mode.name) {
+            <button
+              (click)="colorMode.set(mode.name)"
+              cDropdownItem
+              [class.active]="colorMode() === mode.name"
+              class="d-flex align-items-center"
+            >
+              <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+              {{ mode.text }}
+            </button>
+          }
+        </div>
+      </c-dropdown>
+
+      <!-- User Menu -->
+      <c-dropdown>
+        <button 
+          [caret]="false" 
+          cDropdownToggle 
+          class="btn btn-link p-0"
+        >
+          <svg cIcon name="cilUser" size="lg"></svg>
+        </button>
+        <div cDropdownMenu>
+          <button 
+            cDropdownItem 
+            (click)="logout()"
+            class="d-flex align-items-center"
+          >
+            <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+            Déconnexion
+          </button>
+        </div>
+      </c-dropdown>
+    </c-header-nav>
+  </c-container>
+</ng-container>

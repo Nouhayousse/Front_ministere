@@ -1,0 +1,64 @@
+<c-card>
+  <c-card-body>
+    <h4>Ajouter une candidature</h4>
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+      <!-- Removed noteGlobale and status fields -->
+      
+      <!-- Diplômes (infos sur le diplôme) -->
+      <div class="mb-3">
+        <label>Intitulé du diplôme</label>
+        <input class="form-control" [(ngModel)]="candidatureDto.diplomes[0].intitule" name="intitule" required>
+      </div>
+      <div class="mb-3">
+        <label>École</label>
+        <input class="form-control" [(ngModel)]="candidatureDto.diplomes[0].ecole" name="ecole" required>
+      </div>
+      <div class="mb-3">
+        <label>Date début</label>
+        <input class="form-control" type="date" [(ngModel)]="candidatureDto.diplomes[0].dateDebut" name="dateDebut" required>
+      </div>
+      <div class="mb-3">
+        <label>Date fin</label>
+        <input class="form-control" type="date" [(ngModel)]="candidatureDto.diplomes[0].dateFin" name="dateFin" required>
+      </div>
+      <div class="mb-3">
+        <label>Est actuelle</label>
+        <input type="checkbox" [(ngModel)]="candidatureDto.diplomes[0].estActuelle" name="estActuelle">
+      </div>
+      <div class="mb-3">
+        <label>Niveau</label>
+        <input class="form-control" [(ngModel)]="candidatureDto.diplomes[0].niveau" name="niveau" required>
+      </div>
+      <div class="mb-3">
+        <label>Domaine</label>
+        <input class="form-control" [(ngModel)]="candidatureDto.diplomes[0].domaine" name="domaine" required>
+      </div>
+      <!-- Diplômes (fichiers) -->
+      <div class="mb-3">
+        <label>Diplômes (fichiers)</label>
+        <input class="form-control" type="file" (change)="onDiplomesSelected($event)" multiple required>
+      </div>
+      <!-- CIN (numéro) -->
+      <div class="mb-3">
+        <label>Numéro CIN</label>
+        <input class="form-control" [(ngModel)]="candidatureDto.cin.numeroCIN" name="numeroCIN" required>
+      </div>
+      <!-- CIN (fichier) -->
+      <div class="mb-3">
+        <label>CIN (fichier)</label>
+        <input class="form-control" type="file" (change)="onCinSelected($event)" required>
+      </div>
+      <!-- CV -->
+      <div class="mb-3">
+        <label>CV</label>
+        <input class="form-control" type="file" (change)="onCvSelected($event)" required>
+      </div>
+      <!-- Demande -->
+      <div class="mb-3">
+        <label>Demande</label>
+        <input class="form-control" type="file" (change)="onDemandeSelected($event)" required>
+      </div>
+      <button class="btn btn-success" type="submit">Envoyer</button>
+    </form>
+  </c-card-body>
+</c-card>

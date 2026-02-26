@@ -1,0 +1,70 @@
+<c-card>
+  <c-card-body>
+    <div class="d-flex justify-content-between mb-3">
+      <h2>Liste des Candidatures</h2>
+      <button class="btn btn-primary" routerLink="/admin/import-notes">
+        <i class="bi bi-upload"></i> Importer des Notes
+      </button>
+    </div>
+    <div class="mb-3 d-flex align-items-center gap-2">
+      <label>Concours :</label>
+      <select class="form-select" style="width:200px" [(ngModel)]="concoursSelectionne">
+        <option [ngValue]="null">Tous</option>
+        <option *ngFor="let concours of concoursList" [ngValue]="concours.nomConcours">
+          {{ concours.nomConcours }}
+        </option>
+      </select>
+      
+      <label>Seuil noteGlobale :</label>
+      <input type="number" class="form-control" style="width:120px" 
+             [(ngModel)]="noteSeuil" min="0" max="20" step="0.25">
+      
+      <label>Nombre à retenir :</label>
+      <input type="number" class="form-control" style="width:120px" 
+             [(ngModel)]="nombreAPrendre" min="0">
+      
+      <button class="btn btn-primary" (click)="appliquerSelection()">
+        Appliquer sélection
+      </button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>NomCandidat</th>
+            <th>PrenomCandidat</th>
+            <th>Status</th>
+            <th>Note Globale</th>
+            <th>Concours</th>
+            <th>EmailCandidat</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of candidatures">
+            <td>{{ c.candidat.nomFr }}</td>
+            <td>{{ c.candidat.prenomFr }}</td>
+            <td>
+              <span [ngClass]="{
+                'badge bg-success': c.status === 'ACCEPTE',
+                'badge bg-danger': c.status === 'REFUSE',
+                'badge bg-warning': c.status === 'EN_ATTENTE'
+              }">
+                {{ c.status }}
+              </span>
+            </td>
+            <td>{{ c.noteGlobale }}</td>
+            <td>{{ c.concours.nomConcours }}</td>
+            <td>{{ c.candidat.email }}</td>
+                        <td>
+              <button class="btn btn-outline-warning btn-sm p-1" (click)="editCandidature(c)">
+  <svg cIcon name="cilPencil" width="16" height="16"></svg>
+</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </c-card-body>
+</c-card>
+

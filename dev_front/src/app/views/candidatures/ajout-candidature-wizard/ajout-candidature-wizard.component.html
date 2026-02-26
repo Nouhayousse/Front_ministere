@@ -1,0 +1,14 @@
+
+<div *ngIf="step === 1">
+  <app-add-candidat (candidatCree)="onCandidatCree($event)"></app-add-candidat>
+</div>
+<div *ngIf="step === 2">
+  <button class="btn btn-secondary mb-3" (click)="retourEtape1()">Retour</button>
+  <app-add-candidature [candidat]="candidatCree" [concoursId]="concoursId" (candidatureCree)="onCandidatureCree()"></app-add-candidature>
+</div>
+<div *ngIf="step === 3">
+  <div class="alert alert-success mt-4">
+    🎉 Votre candidature a été envoyée avec succès !
+  </div>
+  <a class="btn btn-primary mt-2" routerLink="/candidat/concoursList">Retour à la liste des concours</a>
+</div>

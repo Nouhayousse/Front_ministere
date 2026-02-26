@@ -1,0 +1,23 @@
+.input-group {
+  max-width: 500px;
+  margin: 0 auto;
+
+  .input-group-text {
+    background-color: white;
+    border-right: none;
+  }
+
+  .form-control {
+    border-left: none;
+    
+    &:focus {
+      border-color: #ced4da;
+      box-shadow: none;
+    }
+  }
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}

@@ -1,0 +1,115 @@
+
+<div *ngIf="ajoutReussi; else formAjout">
+  <div class="alert alert-success text-center p-5 rounded shadow">
+    <i class="bi bi-check-circle-fill display-3 text-success mb-3"></i>
+    <h3>Concours ajouté avec succès !</h3>
+    <p>Votre concours a bien été enregistré.</p>
+    <button class="btn btn-primary mt-3" (click)="ajouterNouveau()">
+      <i class="bi bi-plus-circle"></i> Ajouter un autre concours
+    </button>
+  </div>
+</div>
+
+
+<ng-template #formAjout>
+  <form [formGroup]="concoursForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label>Nom du concours</label>
+      <input class="form-control" formControlName="nomConcours">
+    </div>
+    <div class="mb-3">
+      <label>Description</label>
+      <textarea class="form-control" formControlName="description"></textarea>
+    </div>
+    <div class="row">
+      <div class="col mb-3">
+        <label>Date début</label>
+        <input type="date" class="form-control" formControlName="dateDebut">
+      </div>
+      <div class="col mb-3">
+        <label>Date fin</label>
+        <input type="date" class="form-control" formControlName="dateFin">
+      </div>
+      <div class="col mb-3">
+        <label>Date publication résultats</label>
+        <input type="date" class="form-control" formControlName="datePubResultats">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label>Conditions</label>
+      <textarea class="form-control" formControlName="conditions"></textarea>
+    </div>
+    <div class="row">
+      <div class="col mb-3">
+        <label>Nombre de postes</label>
+        <input type="number" class="form-control" formControlName="nombrePostes">
+      </div>
+      <div class="col mb-3">
+        <label>Lieu</label>
+        <input class="form-control" formControlName="lieu">
+      </div>
+      <div class="col mb-3">
+        <label>Public cible</label>
+        <input class="form-control" formControlName="publicCible">
+      </div>
+      <div class="col mb-3">
+        <label>Grade</label>
+        <select class="form-select" formControlName="grade">
+          <option [ngValue]="null" disabled selected>Choisir un grade</option>
+          <option *ngFor="let g of grades" [ngValue]="g.id">{{ g.nom }}</option>
+        </select>
+      </div>
+    </div>
+
+    <hr>
+    <h5>Épreuves</h5>
+    <div formArrayName="epreuves">
+      <div *ngFor="let epreuve of epreuves.controls; let i = index" [formGroupName]="i" class="border rounded p-3 mb-2">
+        <div class="row">
+          <div class="col">
+            <input class="form-control mb-2" placeholder="Titre" formControlName="titre">
+          </div>
+          <div class="col">
+            <select class="form-select mb-2" formControlName="typeEpreuve">
+              <option value="">Type</option>
+              <option value="ECRITE">ÉCRITE</option>
+              <option value="ORALE">ORALE</option>
+            </select>
+          </div>
+          <div class="col">
+            <input type="date" class="form-control mb-2" formControlName="dateEpreuve">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control mb-2" placeholder="Durée (h)" formControlName="duree">
+          </div>
+        </div>
+        <textarea class="form-control mb-2" placeholder="Description" formControlName="description"></textarea>
+        <div class="row">
+          <div class="col">
+            <input class="form-control mb-2" placeholder="Lieu" formControlName="lieu">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control mb-2" placeholder="Coefficient" formControlName="coefficient">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control mb-2" placeholder="Seuil éliminatoire" formControlName="seuilEliminatoire">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control mb-2" placeholder="Nb retenus" formControlName="nbRetenus">
+          </div>
+          <div class="col">
+            <label class="form-check-label me-2">Passée</label>
+            <input type="checkbox" class="form-check-input" formControlName="estPassee">
+          </div>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm mt-2" (click)="supprimerEpreuve(i)">Supprimer</button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-outline-primary mt-2" (click)="ajouterEpreuve()">Ajouter une épreuve</button>
+    <hr>
+    <button class="btn btn-success mt-3" type="submit" [disabled]="concoursForm.invalid">Enregistrer le concours</button>
+  </form>
+</ng-template>
+
+
+  <!-- Formulaire d’ajout ici -->

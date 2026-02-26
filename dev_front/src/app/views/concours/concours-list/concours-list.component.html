@@ -1,0 +1,153 @@
+<div class="concours-container">
+  <!-- Header Banner -->
+  <div class="banner-section">
+    <div class="container">
+      <div class="banner-placeholder"></div>
+      </div>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="container">
+    <div class="filters-box mb-5">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-search"></i>
+            </span>
+            <input 
+              type="text" 
+              class="form-control" 
+              [(ngModel)]="searchText" 
+              placeholder="Rechercher un concours..."
+            >
+          </div>
+        </div>
+        <div class="col-md-3">
+          <input 
+            type="date" 
+            class="form-control" 
+            [(ngModel)]="dateDebut"
+            placeholder="Date début"
+          >
+        </div>
+        <div class="col-md-3">
+          <input 
+            type="date" 
+            class="form-control" 
+            [(ngModel)]="dateFin"
+            placeholder="Date fin"
+          >
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-outline-secondary w-100" (click)="resetFilters()">
+            <i class="bi bi-x-circle me-2"></i>Réinitialiser
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concours Grid -->
+    <div class="row g-4">
+      <div *ngFor="let concours of filteredConcours" class="col-md-6 col-lg-4">
+        <div class="concours-card">
+          <div class="card-badge" [ngClass]="{'active': isConcoursActive(concours)}">
+            {{ isConcoursActive(concours) ? 'En cours' : 'Terminé' }}
+          </div>
+          
+          <h3 class="card-title">{{concours.nomConcours}}</h3>
+          
+          <div class="card-info">
+            <div class="info-item">
+              <i class="bi bi-calendar-event"></i>
+              <span>Date début: {{concours.dateDebut | date:'dd MMMM yyyy'}}</span>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-calendar-x"></i>
+              <span>Date limite: {{concours.dateFin | date:'dd MMMM yyyy'}}</span>
+            </div>
+          </div>
+
+          <div class="card-description">
+            {{concours.description}}
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-outline-info" (click)="voirDetails(concours)">
+              <i class="bi bi-info-circle me-2"></i>Détails
+            </button>
+          <!-- <button class="btn btn-outline-primary" (click)="afficherEpreuves(concours.id)">
+              <i class="bi bi-calendar-check me-2"></i>Épreuves
+            </button>  -->
+            <button 
+              class="btn btn-primary" 
+              (click)="postuler(concours)"
+              [disabled]="!isConcoursActive(concours)">
+              <i class="bi bi-send me-2"></i>Postuler
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Détails -->
+<div class="modal" [class.show]="selectedConcours" tabindex="-1" role="dialog" [style.display]="selectedConcours ? 'block' : 'none'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedConcours?.nomConcours }}</h5>
+        <button type="button" class="close" (click)="fermerDetails()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><b>Description :</b> {{ selectedConcours?.description }}</p>
+        <p><b>Début :</b> {{ selectedConcours?.dateDebut | date:'dd.MM.yyyy' }}</p>
+        <p><b>Fin :</b> {{ selectedConcours?.dateFin | date:'dd.MM.yyyy' }}</p>
+        <p><b>Lieu :</b> {{ selectedConcours?.lieu }}</p>
+        <p><b>Nombre de postes :</b> {{ selectedConcours?.nombrePostes }}</p>
+        <p><b>Conditions :</b> {{ selectedConcours?.conditions }}</p>
+        <p><b>Public cible :</b> {{ selectedConcours?.publicCible }}</p>
+        <p><b>Date publication résultats :</b> {{ selectedConcours?.datePubResultats | date:'dd.MM.yyyy' }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="fermerDetails()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Épreuves 
+<div class="modal" [class.show]="epreuvesModalVisible" tabindex="-1" role="dialog" [style.display]="epreuvesModalVisible ? 'block' : 'none'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Liste des épreuves</h5>
+        <button type="button" class="close" (click)="fermerEpreuves()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul *ngIf="epreuves.length > 0" class="list-group">
+          <li *ngFor="let e of epreuves" class="list-group-item mb-2 rounded shadow-sm border-0">
+            <div class="fw-bold mb-1">{{ e.titre }} <span class="badge bg-info ms-2">{{ e.typeEpreuve }}</span></div>
+            <div><i class="bi bi-calendar-event"></i> <b>Date :</b> {{ e.dateEpreuve | date:'dd/MM/yyyy' }}</div>
+            <div><i class="bi bi-clock"></i> <b>Durée :</b> {{ e.duree }}h | <i class="bi bi-geo-alt"></i> <b>Lieu :</b> {{ e.lieu }}</div>
+            <div><i class="bi bi-award"></i> <b>Coefficient :</b> {{ e.coefficient }} | <b>Seuil :</b> {{ e.seuilEliminatoire }}</div>
+            <div><i class="bi bi-people"></i> <b>Nb retenus :</b> {{ e.nbRetenus }} | <b>Passée :</b> 
+              <span [ngClass]="e.estPassee ? 'text-success' : 'text-danger'">
+                {{ e.estPassee ? 'Oui' : 'Non' }}
+              </span>
+            </div>
+          </li>
+        </ul>
+        <div *ngIf="epreuves.length === 0" class="alert alert-warning mt-3">Aucune épreuve pour ce concours.</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="fermerEpreuves()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>-->
