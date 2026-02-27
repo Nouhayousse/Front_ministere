@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist/coreui-free-angular-admin-template"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+  
