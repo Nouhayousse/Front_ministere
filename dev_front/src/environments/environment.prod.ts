@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.your-domain.com/candidature-api'
+ apiUrl: 'https://isabell-unbelonging-corina.ngrok-free.dev/candidature-api'
 };
