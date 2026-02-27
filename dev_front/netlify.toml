@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist/coreui-free-angular-admin-template"
+  publish = "dist/coreui-free-angular-admin-template/browser"
 
 [[redirects]]
   from = "/*"
